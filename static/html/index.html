@@ -14,36 +14,25 @@
 <script type="text/javascript" src="/static/js/jsoauthapi.js?1"></script>
 <script type="text/javascript">
     google.load("jquery", "1");
-    google.load("maps", "2", {other_params: "sensor=false"});
+    google.load("maps", "3", {other_params: "sensor=false&key=ABQIAAAA1PzfNUzENFLkcCUSpDoMQBTdp8DcBBN3_zUEII8WC3eyagMC_xRaY10X15Jkb1K4aNgMeVMSxNtB7g"});
 
-    function draw_map() {
-        if (!GBrowserIsCompatible()) return;
-        map = new GMap2(document.getElementById("map"));
-
-        map.addControl(new GSmallMapControl());
-
-        return map;
-    }
-
-    var map;
-
-    function render_tweets(r) {
+    function render_tweets(r, map) {
         var found_first = false;
         $.each(r, function(i, o) {
             if(!o.geo) return true;
 
-            var coords = o.geo.coordinates;
+            var coords = new google.maps.LatLng(o.geo.coordinates[0], o.geo.coordinates[1]);
 
             if(!found_first) {
                 found_first = true;
-                set_center(coords[0], coords[1]);
+                map.setCenter(coords);
+                map.setZoom(10);
             }
-            var icon = new GIcon(G_DEFAULT_ICON);
-            icon.image = "http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png";
-            icon.iconSize = new GSize(32, 32);
 
-            var marker = new GMarker(new GLatLng(coords[0], coords[1]), { icon: icon });
-            map.addOverlay(marker)
+            var marker = new google.maps.Marker({
+                position: coords,
+                map: map,
+            });
         });
     };
 
@@ -52,15 +41,10 @@
         $(".user").removeClass('hidden');
     };
 
-    function set_center(lat, lng) {
-        var pos = new GLatLng(lat, lng);
-        map.setCenter(pos, 11);
-    };
-
-    function init_loggedin() {
+    function load_into_map(map) {
         twitter_api.user_timeline({count: 200}, function(r) {
             set_logged_in(r[0].user.screen_name);
-            render_tweets(r);
+            render_tweets(r, map);
         });
     };
 
@@ -71,13 +55,20 @@
         if(OAuth.accessor == undefined) {
             $(".intro").removeClass('hidden');
             $("#login").click(function() { OAuth.auth_redirect(); });
-        } else {
-            $(".results").removeClass('hidden');
-            $("#logout").click(function() { clear_cookies(); window.location.reload(); }).show();
-            init_loggedin();
+            return;
         }
 
-        map = draw_map();
+        $(".results").removeClass('hidden');
+        $("#logout").click(function() { clear_cookies(); window.location.reload(); }).show();
+
+        var myOptions = {
+          zoom: 2,
+          center: new google.maps.LatLng(0, 0),
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          mapTypeControl: false
+        };
+        map = new google.maps.Map(document.getElementById("map"), myOptions);
+        load_into_map(map);
     });
 </script>
 <script type="text/javascript" src="/static/js/jquery.jsonp-1.1.0.min.js"></script>
@@ -105,7 +96,7 @@
 </div>
 
 <div class="results content hidden">
-    <h2 id="progress">Where has @<span class="username">you</span> been tweeting?</h2>
+    <h2 id="progress">Where has @<span class="username">someone</span> been tweeting?</h2>
     <div id="map" style="height: 300px;"></div>
 </div>
 
