@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta content="en-us" http-equiv="Content-Language" />
+
+<title>tweography | Where have I tweeted from?</title>
+
+<script src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="/static/js/sha1.js"></script>
+<script type="text/javascript" src="/static/js/oauth.js"></script>
+<script type="text/javascript" src="/static/js/jsoauthapi.js?1"></script>
+<script>
+    google.load("jquery", "1");
+
+    google.setOnLoadCallback(function() {
+        OAuth.app = "tweography";
+        if(window.location.host == "localhost:8080") OAuth.app = "tweography-test";
+
+        if(OAuth.accessor == undefined) {
+            $("#login").click(function() { OAuth.auth_redirect(); }).show();
+        } else {
+            $("#tweepsect_input").show();
+            $("#logout").click(function() { clear_cookies(); window.location.reload(); }).show();
+        }
+    });
+</script>
+<script type="text/javascript" src="/static/js/jquery.jsonp-1.1.0.min.js"></script>
+<script type="text/javascript" src="/static/js/tweography.js?1"></script>
+<link rel="stylesheet" href="/static/css/blueprint/screen.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="/static/css/blueprint/print.css" type="text/css" media="print"> 
+<!--[if IE]>
+  <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+<![endif]-->
+<link rel="stylesheet" href="/static/css/tweography.css?1" type="text/css">
+</head>
+<body>
+
+<div id="header" class="container">
+    <div class="span-5">
+        <a href="."><h1 style="margin-top: 10px;"><span class="blue">twe</span><span class="red">ography</span></h1></a>
+    </div>
+    <div id="progress" class="span-24 last"><h2>Visualize where you've been tweeting from on a map.</h2></div>
+</div>
+
+<div id="footer">A weekday project by @<a href="http://twitter.com/limedaring">limedaring</a>and @<a href="http://twitter.com/shazow">shazow</a></div>
+
+</body>
+</html>
