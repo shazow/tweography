@@ -41,7 +41,11 @@
             var marker = new GMarker(new GLatLng(coords[0], coords[1]), { icon: icon });
             map.addOverlay(marker)
         });
-    }
+    };
+
+    function init_loggedin() {
+
+    };
 
     google.setOnLoadCallback(function() {
         map = draw_map();
@@ -55,10 +59,12 @@
         } else {
             $(".results").removeClass('hidden');
             $("#logout").click(function() { clear_cookies(); window.location.reload(); }).show();
+            init_loggedin();
         }
     });
 </script>
 <script type="text/javascript" src="/static/js/jquery.jsonp-1.1.0.min.js"></script>
+<script type="text/javascript" src="/static/js/util.js?1"></script>
 <script type="text/javascript" src="/static/js/tweography.js?1"></script>
 <link rel="stylesheet" href="/static/css/tweography.css?1" type="text/css">
 </head>
