@@ -18,6 +18,7 @@
 
     function render_tweets(r, map) {
         var found_first = false;
+        var count = 0;
         $.each(r, function(i, o) {
             if(!o.geo) return true;
 
@@ -33,7 +34,9 @@
                 position: coords,
                 map: map,
             });
+            count++;
         });
+        return count;
     };
 
     function set_logged_in(username) {
@@ -43,8 +46,18 @@
 
     function load_into_map(map) {
         twitter_api.user_timeline({count: 200}, function(r) {
+            if(r.length==0) {
+                $("#progress").html("You don't have any tweets! :O");
+                set_logged_in("you");
+                return;
+            }
             set_logged_in(r[0].user.screen_name);
-            render_tweets(r, map);
+            var c = render_tweets(r, map);
+            if(c==0) {
+                $("#progress").html("You don't have any geotagged tweets. :(");
+                return;
+            }
+            $("#progress").html('Where has @<span class="username">'+ r[0].user.screen_name +'</span> been tweeting?');
         });
     };
 
@@ -86,8 +99,8 @@
 <div class="intro content hidden">
     <img src="/static/images/mini-map.png" title="My Tweets plus Google Maps = Tweography" id="mini-map"/>
     <div>
-        <h2 id="progress">
-            Your tweets on a map = Tweography.
+        <h2 class="message">
+            Tweography: Your tweets on a map.
         </h2>
         <ol>
             <li><strong>Step 1.</strong> <img src="/static/images/Sign-in-with-Twitter-darker.png" alt="Sign in with Twitter" id="login" class="button" style="margin-bottom: -6px;" /></li>
@@ -96,11 +109,11 @@
 </div>
 
 <div class="results content hidden">
-    <h2 id="progress">Where has @<span class="username">someone</span> been tweeting?</h2>
+    <h2 class="message" id="progress">Loading your Tweets...</h2>
     <div id="map" style="height: 300px;"></div>
 </div>
 
-<div id="footer">A weeknight project by @<a href="http://twitter.com/limedaring">limedaring</a> and @<a href="http://twitter.com/shazow">shazow</a>.</div>
+<div id="footer">A weeknight project by @<a href="http://twitter.com/limedaring" title="Designer">limedaring</a> and @<a href="http://twitter.com/shazow" title="Coder">shazow</a>.</div>
 
 </body>
 </html>
