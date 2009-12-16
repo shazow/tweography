@@ -12,22 +12,41 @@
 <script type="text/javascript" src="/static/js/sha1.js"></script>
 <script type="text/javascript" src="/static/js/oauth.js"></script>
 <script type="text/javascript" src="/static/js/jsoauthapi.js?1"></script>
-<script>
+<script type="text/javascript">
     google.load("jquery", "1");
-    google.load("maps", "2");
+    google.load("maps", "2", {other_params: "sensor=false"});
 
     function draw_map() {
         if (!GBrowserIsCompatible()) return;
         map = new GMap2(document.getElementById("map"));
 
         var pos = new GLatLng(37.38639, -122.080421);
-
-        map.setCenter(pos, 14);
+        map.setCenter(pos, 11);
         map.addControl(new GSmallMapControl());
-        map.addOverlay(new GMarker(map.getCenter()));
+
+        return map;
     }
 
     google.setOnLoadCallback(function() {
+        var map = draw_map();
+
+        function render_tweets(r) {
+            $.each(r, function(i, o) {
+                if(!o.geo) return true;
+                var coords = o.geo.coordinates;
+
+                var icon = new GIcon(G_DEFAULT_ICON);
+                icon.image = "http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png";
+                icon.iconSize = new GSize(32, 32);
+
+                var marker = new GMarker(new GLatLng(coords[0], coords[1]), { icon: icon });
+                map.addOverlay(marker)
+            });
+        }
+
+        $.getJSON('/static/api/user_timeline.json', render_tweets);
+
+        return;
         OAuth.app = "tweography";
         if(window.location.host == "localhost:8080") OAuth.app = "tweography-test";
 
@@ -57,11 +76,11 @@
     <div id="progress" class="span-24 last"><h2>Visualize where you've been tweeting from on a map.</h2></div>
 </div>
 
-<div id="content" class="container">
+<div id="content" class="container" style="margin-bottom: 30px;">
     Omg stuff
 </div>
 
-<div id="map"></div>
+<div id="map" style="height: 300px;"></div>
 
 <div id="footer">A weekday project by @<a href="http://twitter.com/limedaring">limedaring</a>and @<a href="http://twitter.com/shazow">shazow</a></div>
 
