@@ -1,0 +1,8 @@
+*.pyc
+*~
+.*
+*.pidaproject
+*.db
+*.sqlite
+*.log
+data
