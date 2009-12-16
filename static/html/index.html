@@ -14,6 +14,18 @@
 <script type="text/javascript" src="/static/js/jsoauthapi.js?1"></script>
 <script>
     google.load("jquery", "1");
+    google.load("maps", "2");
+
+    function draw_map() {
+        if (!GBrowserIsCompatible()) return;
+        map = new GMap2(document.getElementById("map"));
+
+        var pos = new GLatLng(37.38639, -122.080421);
+
+        map.setCenter(pos, 14);
+        map.addControl(new GSmallMapControl());
+        map.addOverlay(new GMarker(map.getCenter()));
+    }
 
     google.setOnLoadCallback(function() {
         OAuth.app = "tweography";
@@ -40,10 +52,16 @@
 
 <div id="header" class="container">
     <div class="span-5">
-        <a href="."><h1 style="margin-top: 10px;"><span class="blue">twe</span><span class="red">ography</span></h1></a>
+        <a href="/"><h1 style="margin-top: 10px;"><span class="blue">twe</span><span class="red">ography</span></h1></a>
     </div>
     <div id="progress" class="span-24 last"><h2>Visualize where you've been tweeting from on a map.</h2></div>
 </div>
+
+<div id="content" class="container">
+    Omg stuff
+</div>
+
+<div id="map"></div>
 
 <div id="footer">A weekday project by @<a href="http://twitter.com/limedaring">limedaring</a>and @<a href="http://twitter.com/shazow">shazow</a></div>
 
