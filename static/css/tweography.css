@@ -1,198 +1,97 @@
-html, body, #wrap {
-    height: 100%;
-    color: #444;
-}
-a {
-    color: #0084B4;
-}
-h3 {
-    font-size: 1em;
-    display: inline;
-}
-.blue {
-    color: #0084B4;
-}
-.red {
-    color: #FF493C;
-}
-.number {
-    color: #CCCCCC;
-}
-#say_thanks {
-    display: none;
-    padding-top: 20px;
-    text-align: right;
-}
-#say_thanks form {
-    display: none;
-    position: absolute;
-    width: 310px;
-    background: #fff;
-    padding: 10px;
-    margin-left: 30px;
-    border: 1px solid #eee;
-    border-top: 0;
-}
-#say_thanks textarea {
-    width: 300px;
-    height: 4em;
-}
-#results a {
-    text-decoration: none;
-}
-#results li {
-    color: #CCCCCC;
-}
-#progress {
-    font-family: monospace;
-    font-size: 14px;
-    line-height: 25px;
-    background: #FFFFCC;
-    padding: 0px 5px;
-}
-#progress a {
-    color: #3695a9;
-    font-weight: bold;
-}
-#progress h2 {
-    font-family: monospace;
-    font-size: 14px;
-    display: inline;
-}
-#header {
-    height: 100px;
-    padding-top: 15px;
-}
-#header a {
-    text-decoration: none;
-}
-#footer {
-    height: 4em;
-    width: 100%;
-    line-height: 4em;
-    text-align: center;
-    position: absolute;
-    bottom: 0;
-}
-body > #wrap {
-    min-height: 100%;
-    height: auto !important;
-}
-#results {
-    padding-bottom: 4em;
-    padding-top: 1em;
-}
-#results li {
-    font-size: 1.2em;
-    line-height: 1.7em;
-}
-#results ul {
-    margin: 0;
-    list-style-type: none;
-}
-#results a {
-    color: #0084B4;
-}
-#results .unfollowed a {
-    color: #aaa;
-}
-#results .followed a {
-    color: #FF493C;
-}
-.auth_button {
-    display: inline;
-    line-height: 15px;
-    font-size: 13px;
-    cursor: pointer;
-    display: none;
-}
-#login {
-    height: 24px;
-    margin-top: 18px;
-}
-#logout {
-    color: #7F453F;
-    border-bottom: 1px dotted #AF908D;
-    margin-left: 1em;
-}
-#intro {
-    font-size: 1.3em;
+/* CSS RESET */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td { margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent; }
+ol, ul { list-style: none; }
+blockquote, q { quotes: none; }
+ins { text-decoration: none; } /* remember to highlight inserts somehow! */
+del { text-decoration: line-through; }
+table { border-collapse: collapse; border-spacing: 0; } /* tables still need 'cellspacing="0"' in the markup */
+
+html {
+    background: #6b88a5;   
+    overflow-x: hidden;
 }
 
-#intro dt {
-    width: 190px;
-    margin-right: 10px;
-    float: left;
-    text-align: right;
+body {
+    font:62.5% 'Lucida Grande', Arial, sans-serif;
 }
-#intro dd {
-    width: 350px;
-    margin-bottom: 1em;
-    margin-left: 0;
-    float: left;
+
+a { color:#fff; }
+
+#header {
+    padding:20px 0 20px 40px;
+    color:#fff;
+    position:relative;
 }
-#tweepsect_input {
-    display: none;
+
+#header h1 {
+    width:337px;
+    height:92px;
+    background:url(../images/tweography.png) top left no-repeat;
+    text-indent:-9999px;
 }
-#templates {
-    display: none;
+
+#header #login {
+position:absolute;
+    top:35px;
+    left:420px;
+    background: url(../images/login-r.png) top right no-repeat;
 }
-.floating_info_body {
-    background: #ffc;
-    color: #666;
-    padding: 4px;
-    line-height: 20px;
-    font-size: 12px;
+
+#header span {
+    font-size:1.6em;
+    display:block;
+    background: url(../images/login-left.png) top left no-repeat;
+    height:24px;
+    padding:16px 25px 16px 35px;
 }
-.floating_info {
-    float: right;
-    background: #fff url('/static/images/yellow_corner.png') no-repeat left 1em;
-    padding-left: 10px;
-    width: 175px;
+
+#content {
+    background-color:#fff;
+    padding:15px 25px 20px 20px;
+    color:#db9000;
+    -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4);
+    margin-right:-5px;
+    overflow:hidden;
 }
-.floating_info p {
-    margin: 0;
+
+#content h2 {
+    font-weight:normal;
+    font-size:2.5em;
+    margin:0 0 15px 10px;
 }
-.floating_info img {
-    float: left;
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
+
+#exterior #content h2 {
+    margin-top:15px;
 }
-.floating_info .name {
-    font-weight: bold;
-    font-size: 16px;
+
+#content p {
+	font-size: 1.4em;
+	margin: 0 0 0 10px;
+	color: #888;
 }
-.floating_actions {
-    height: 15px;
-    width: 30px;
-    position: absolute;
-    margin-top: -1.4em;
-    margin-left: -35px;;
+
+#content #signin-button {
+	width: 151px;
+	height: 24px;
+	text-indent: -9999px;
+	display: block;
+	background: url(../images/twitter-signin.png) top left no-repeat;
+	border: 1px solid red;
 }
-.floating_actions i {
-    float: left;
+
+#content img {
+	margin-top: 20px;
 }
-.floating_row {
-    position: relative;
-    margin-left: -100px;
-    padding-left: 100px;
+
+#content img#mini-map {
+    margin:10px 20px 10px 10px;
+    float:left;
 }
-.twitter_sprite {
-    background-image: url('/static/images/twitter-sprite-icons.png');
-    background-repeat: no-repeat;
-    height: 13px;
-    width: 13px;
-    overflow: hidden;
-    display: block;
-    margin: 1px;
-    cursor: pointer;
+
+#footer {
+    color:#fff;
+    margin:20px 0 20px 40px;
+    font-size:1.2em;
 }
-.button {
-}
-.twitter_sprite.follow { background-position:-176px -32px; }
-.twitter_sprite.follow:hover { background-position:-160px -32px; }
-.twitter_sprite.unfollow { background-position:-112px -32px; }
-.twitter_sprite.unfollow:hover { background-position:-96px -32px; }
-.twitter_sprite.block { background-position:-144px -32px; }
-.twitter_sprite.block:hover { background-position:-128px -32px; }
