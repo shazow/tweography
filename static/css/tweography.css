@@ -7,7 +7,7 @@ del { text-decoration: line-through; }
 table { border-collapse: collapse; border-spacing: 0; } /* tables still need 'cellspacing="0"' in the markup */
 
 html {
-    background: #6b88a5;   
+    background: #6b88a5 url(../images/pattern.png) top left repeat;   
     overflow-x: hidden;
 }
 
@@ -33,7 +33,7 @@ a { color:#fff; }
 }
 
 #header h1 {
-    width:337px;
+    width:387px;
     height:92px;
     background:url(../images/tweography.png) top left no-repeat;
     text-indent:-9999px;
@@ -48,8 +48,8 @@ a { color:#fff; }
 
 #header .results {
     position:absolute;
-    top:35px;
-    left:420px;
+    top:40px;
+    left:430px;
     font-size:1.6em;
     background: url(../images/login-r.png) top right no-repeat;
 }
