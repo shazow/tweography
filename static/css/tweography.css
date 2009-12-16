@@ -39,19 +39,19 @@ a { color:#fff; }
     text-indent:-9999px;
 }
 
-#header #logout {
-position:absolute;
-    top:35px;
-    left:420px;
-    background: url(../images/login-r.png) top right no-repeat;
-}
-
-#header span {
-    font-size:1.6em;
-    display:block;
-    background: url(../images/login-left.png) top left no-repeat;
+#header #extra {
+	background: url(../images/login-left.png) top left no-repeat;
     height:24px;
     padding:16px 25px 16px 35px;
+    display:block;
+}
+
+#header .results {
+    position:absolute;
+    top:35px;
+    left:420px;
+    font-size:1.6em;
+    background: url(../images/login-r.png) top right no-repeat;
 }
 
 .content {
