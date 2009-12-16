@@ -27,33 +27,33 @@
         return map;
     }
 
+    var map;
+
+    function render_tweets(r) {
+        $.each(r, function(i, o) {
+            if(!o.geo) return true;
+            var coords = o.geo.coordinates;
+
+            var icon = new GIcon(G_DEFAULT_ICON);
+            icon.image = "http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png";
+            icon.iconSize = new GSize(32, 32);
+
+            var marker = new GMarker(new GLatLng(coords[0], coords[1]), { icon: icon });
+            map.addOverlay(marker)
+        });
+    }
+
     google.setOnLoadCallback(function() {
-        var map = draw_map();
+        map = draw_map();
 
-        function render_tweets(r) {
-            $.each(r, function(i, o) {
-                if(!o.geo) return true;
-                var coords = o.geo.coordinates;
-
-                var icon = new GIcon(G_DEFAULT_ICON);
-                icon.image = "http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png";
-                icon.iconSize = new GSize(32, 32);
-
-                var marker = new GMarker(new GLatLng(coords[0], coords[1]), { icon: icon });
-                map.addOverlay(marker)
-            });
-        }
-
-        $.getJSON('/static/api/user_timeline.json', render_tweets);
-
-        return;
         OAuth.app = "tweography";
         if(window.location.host == "localhost:8080") OAuth.app = "tweography-test";
 
         if(OAuth.accessor == undefined) {
-            $("#login").click(function() { OAuth.auth_redirect(); }).show();
+            $(".intro").removeClass('hidden');
+            $("#login").click(function() { OAuth.auth_redirect(); });
         } else {
-            $("#tweepsect_input").show();
+            $(".results").removeClass('hidden');
             $("#logout").click(function() { clear_cookies(); window.location.reload(); }).show();
         }
     });
@@ -66,21 +66,21 @@
 
 <div id="header">
     <h1><a href="/">Tweography</a></h1>
-    <div id="login" class="hidden"></div>
+    <div class="results hidden">Hi, @<span id="username"></span>! <span class="button" id="logout">Sign out?</span></div>
 </div>
 
-<div class="content" id="intro">
-    <img src="/static/images/mini-map.png" alt="" id="mini-map"/>
+<div class="intro content hidden">
+    <img src="/static/images/mini-map.png" title="Wow, you've been around!" id="mini-map"/>
     <div>
         <h2 id="progress">
             Tweography is a tiny application to see where you've been!
         </h2>
         <p>Sign in with Twitter to begin.</p>
-        <p><a href=""><img src="/static/images/Sign-in-with-Twitter-darker.png" alt="" /></a></p>
+        <p><img src="/static/images/Sign-in-with-Twitter-darker.png" alt="Sign in with Twitter" id="login" class"button" /></a></p>
     </div>
 </div>
 
-<div class="content hidden" id="results">
+<div class="results content hidden">
     <h2 id="progress">Where has @limedaring been tweeting?</h2>
     <div id="map" style="height: 300px;"></div>
 </div>

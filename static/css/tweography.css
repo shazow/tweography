@@ -22,6 +22,10 @@ a { color:#fff; }
     display: none;
 }
 
+.button {
+    pointer: cursor;
+}
+
 #header {
     padding:20px 0 20px 40px;
     color:#fff;
@@ -35,7 +39,7 @@ a { color:#fff; }
     text-indent:-9999px;
 }
 
-#header #login {
+#header #logout {
 position:absolute;
     top:35px;
     left:420px;
