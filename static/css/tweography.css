@@ -23,7 +23,8 @@ a { color:#fff; }
 }
 
 .button {
-    pointer: cursor;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 #header {
@@ -40,13 +41,13 @@ a { color:#fff; }
 }
 
 #header #extra {
-	background: url(../images/login-left.png) top left no-repeat;
+    background: url(../images/login-left.png) top left no-repeat;
     height:24px;
     padding:16px 25px 16px 35px;
     display:block;
 }
 
-#header .results {
+#header .user {
     position:absolute;
     top:40px;
     left:430px;
@@ -71,31 +72,8 @@ a { color:#fff; }
     margin:0 0 15px 10px;
 }
 
-#intro h2 {
-    margin-top:15px;
-}
-
-.content p {
-    font-size: 1.4em;
-    margin: 0 0 0 10px;
-    color: #888;
-}
-
-.content #signin-button {
-    width: 151px;
-    height: 24px;
-    text-indent: -9999px;
-    display: block;
-    background: url(../images/twitter-signin.png) top left no-repeat;
-    border: 1px solid red;
-}
-
-.content img {
-    margin-top: 20px;
-}
-
-.content img#mini-map {
-    margin:10px 20px 10px 10px;
+.content #mini-map {
+    margin: 0px 10px 0px -10px;
     float:left;
 }
 
@@ -103,4 +81,11 @@ a { color:#fff; }
     color:#fff;
     margin:20px 0 20px 40px;
     font-size:1.2em;
+}
+
+.content li {
+    font-size: 1.4em;
+    line-height: 2em;
+    margin: 0 0 0 10px;
+    color: #888;
 }

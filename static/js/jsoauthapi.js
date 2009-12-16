@@ -86,7 +86,7 @@ google.setOnLoadCallback(function() {
 
     OAuth.getJSON = function(url, parameters, callback_success, callback_error) {
         parameters['callback'] = "json_callback";
-        
+
         var signed_url = OAuth.get_signed_url(url, parameters);
 
         function try_again_callback() {
@@ -104,7 +104,6 @@ google.setOnLoadCallback(function() {
             callback: "json_callback",
             url: signed_url
         });
-
     }
 
     OAuth.post = function(url, parameters, callback) {
@@ -131,27 +130,27 @@ google.setOnLoadCallback(function() {
  */
 
 function set_cookie(name, value, seconds) {
-	if (seconds) {
-		var date = new Date();
-		date.setTime(date.getTime()+(seconds*1000));
-		var expires = "; expires="+date.toGMTString();
-	}
-	else var expires = "";
-	document.cookie = name+"="+value+expires+"; path=/";
+    if (seconds) {
+        var date = new Date();
+        date.setTime(date.getTime()+(seconds*1000));
+        var expires = "; expires="+date.toGMTString();
+    }
+    else var expires = "";
+    document.cookie = name+"="+value+expires+"; path=/";
 }
 
 function get_cookie(name) {
-	var nameEQ = name + "=";
-	var ca = document.cookie.split(';');
-	for(var i=0;i < ca.length;i++) {
-		var c = ca[i];
-		while (c.charAt(0)==' ') c = c.substring(1,c.length);
-		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-	}
-	return null;
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
 }
 
 function delete_cookie(name) {
-	set_cookie(name, "", -1000);
+    set_cookie(name, "", -1000);
 }
 

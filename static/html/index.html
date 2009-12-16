@@ -20,8 +20,6 @@
         if (!GBrowserIsCompatible()) return;
         map = new GMap2(document.getElementById("map"));
 
-        var pos = new GLatLng(37.38639, -122.080421);
-        map.setCenter(pos, 11);
         map.addControl(new GSmallMapControl());
 
         return map;
@@ -30,10 +28,16 @@
     var map;
 
     function render_tweets(r) {
+        var found_first = false;
         $.each(r, function(i, o) {
             if(!o.geo) return true;
+
             var coords = o.geo.coordinates;
 
+            if(!found_first) {
+                found_first = true;
+                set_center(coords[0], coords[1]);
+            }
             var icon = new GIcon(G_DEFAULT_ICON);
             icon.image = "http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png";
             icon.iconSize = new GSize(32, 32);
@@ -43,13 +47,24 @@
         });
     };
 
-    function init_loggedin() {
+    function set_logged_in(username) {
+        $(".username").text(username);
+        $(".user").removeClass('hidden');
+    };
 
+    function set_center(lat, lng) {
+        var pos = new GLatLng(lat, lng);
+        map.setCenter(pos, 11);
+    };
+
+    function init_loggedin() {
+        twitter_api.user_timeline({count: 200}, function(r) {
+            set_logged_in(r[0].user.screen_name);
+            render_tweets(r);
+        });
     };
 
     google.setOnLoadCallback(function() {
-        map = draw_map();
-
         OAuth.app = "tweography";
         if(window.location.host == "localhost:8080") OAuth.app = "tweography-test";
 
@@ -61,6 +76,8 @@
             $("#logout").click(function() { clear_cookies(); window.location.reload(); }).show();
             init_loggedin();
         }
+
+        map = draw_map();
     });
 </script>
 <script type="text/javascript" src="/static/js/jquery.jsonp-1.1.0.min.js"></script>
@@ -72,26 +89,27 @@
 
 <div id="header">
     <h1><a href="/">Tweography</a></h1>
-    <div class="results hidden"><div id="extra">Hi, @<span id="username"></span>! <span class="button" id="logout">Sign out?</span></div></div>
+    <div class="user hidden"><div id="extra">Hi, @<span class="username">you</span>! <span class="button" id="logout">Sign out?</span></div></div>
 </div>
 
 <div class="intro content hidden">
-    <img src="/static/images/mini-map.png" title="Wow, you've been around!" id="mini-map"/>
+    <img src="/static/images/mini-map.png" title="My Tweets plus Google Maps = Tweography" id="mini-map"/>
     <div>
         <h2 id="progress">
-            Tweography is a tiny application to see where you've been!
+            Your tweets on a map = Tweography.
         </h2>
-        <p>Sign in with Twitter to begin.</p>
-        <p><img src="/static/images/Sign-in-with-Twitter-darker.png" alt="Sign in with Twitter" id="login" class"button" /></a></p>
+        <ol>
+            <li><strong>Step 1.</strong> <img src="/static/images/Sign-in-with-Twitter-darker.png" alt="Sign in with Twitter" id="login" class="button" style="margin-bottom: -6px;" /></li>
+            <li><strong>Step 2.</strong> Enjoy.</li>
     </div>
 </div>
 
 <div class="results content hidden">
-    <h2 id="progress">Where has @limedaring been tweeting?</h2>
+    <h2 id="progress">Where has @<span class="username">you</span> been tweeting?</h2>
     <div id="map" style="height: 300px;"></div>
 </div>
 
-<div id="footer">A weeknight hacking project by @<a href="http://twitter.com/limedaring">limedaring</a> and @<a href="http://twitter.com/shazow">shazow</a></div>
+<div id="footer">A weeknight project by @<a href="http://twitter.com/limedaring">limedaring</a> and @<a href="http://twitter.com/shazow">shazow</a>.</div>
 
 </body>
 </html>
