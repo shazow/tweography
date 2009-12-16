@@ -66,16 +66,24 @@
 
 <div id="header">
     <h1><a href="/">Tweography</a></h1>
-    <div id="login">    
-        <span>Hi, @limedaring! <a href="">logout?</a></span>
+    <div id="login" class="hidden"></div>
+</div>
+
+<div class="content" id="intro">
+    <img src="/static/images/mini-map.png" alt="" id="mini-map"/>
+    <div>
+        <h2 id="progress">
+            Tweography is a tiny application to see where you've been!
+        </h2>
+        <p>Sign in with Twitter to begin.</p>
+        <p><a href=""><img src="/static/images/Sign-in-with-Twitter-darker.png" alt="" /></a></p>
     </div>
 </div>
 
-<div id="content">
+<div class="content hidden" id="results">
     <h2 id="progress">Where has @limedaring been tweeting?</h2>
     <div id="map" style="height: 300px;"></div>
 </div>
-
 
 <div id="footer">A weeknight hacking project by @<a href="http://twitter.com/limedaring">limedaring</a> and @<a href="http://twitter.com/shazow">shazow</a></div>
 

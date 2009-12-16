@@ -17,6 +17,11 @@ body {
 
 a { color:#fff; }
 
+
+.hidden {
+    display: none;
+}
+
 #header {
     padding:20px 0 20px 40px;
     color:#fff;
@@ -45,7 +50,7 @@ position:absolute;
     padding:16px 25px 16px 35px;
 }
 
-#content {
+.content {
     background-color:#fff;
     padding:15px 25px 20px 20px;
     color:#db9000;
@@ -56,36 +61,36 @@ position:absolute;
     overflow:hidden;
 }
 
-#content h2 {
+.content h2 {
     font-weight:normal;
     font-size:2.5em;
     margin:0 0 15px 10px;
 }
 
-#exterior #content h2 {
+#intro h2 {
     margin-top:15px;
 }
 
-#content p {
-	font-size: 1.4em;
-	margin: 0 0 0 10px;
-	color: #888;
+.content p {
+    font-size: 1.4em;
+    margin: 0 0 0 10px;
+    color: #888;
 }
 
-#content #signin-button {
-	width: 151px;
-	height: 24px;
-	text-indent: -9999px;
-	display: block;
-	background: url(../images/twitter-signin.png) top left no-repeat;
-	border: 1px solid red;
+.content #signin-button {
+    width: 151px;
+    height: 24px;
+    text-indent: -9999px;
+    display: block;
+    background: url(../images/twitter-signin.png) top left no-repeat;
+    border: 1px solid red;
 }
 
-#content img {
-	margin-top: 20px;
+.content img {
+    margin-top: 20px;
 }
 
-#content img#mini-map {
+.content img#mini-map {
     margin:10px 20px 10px 10px;
     float:left;
 }
