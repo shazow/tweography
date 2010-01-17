@@ -2,8 +2,6 @@
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td { margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent; }
 ol, ul { list-style: none; }
 blockquote, q { quotes: none; }
-ins { text-decoration: none; } /* remember to highlight inserts somehow! */
-del { text-decoration: line-through; }
 table { border-collapse: collapse; border-spacing: 0; } /* tables still need 'cellspacing="0"' in the markup */
 
 html {
@@ -16,7 +14,6 @@ body {
 }
 
 a { color:#fff; }
-
 
 .hidden {
     display: none;
@@ -57,7 +54,7 @@ a { color:#fff; }
 
 .content {
     background-color:#fff;
-    padding:15px 25px 20px 20px;
+    padding:10px 25px 20px 20px;
     color:#db9000;
     -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4);
     -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4);
@@ -69,7 +66,7 @@ a { color:#fff; }
 .content h2 {
     font-weight:normal;
     font-size:2.5em;
-    margin:0 0 15px 10px;
+    margin:0 0 10px 10px;
 }
 
 .intro h2 {
@@ -93,6 +90,48 @@ a { color:#fff; }
     float:left;
 }
 
+#enableGeo {
+    font-size:1.6em;
+    color:#888;
+    line-height:1.6;
+    margin:-10px 0 20px 100px;
+    width:70%;
+}
+
+#enableGeo ol {
+    margin:10px 0 0 0;
+}
+
+#enableGeo li {
+    font-size:1em;
+    margin-left:30px;
+    list-style-type:decimal;
+    line-height:1.8;
+}
+
+#enableGeo li a {
+    color:#67839F;
+}
+
+#enableGeo h3 {
+    margin:20px 0 10px 0;
+}
+
+#enableGeo input {
+    font-size:1em;
+}
+
+#enableGeo input#errorTwitName {
+    color:#67839F;
+}
+
+#enableGeo input#errorSubmit {
+    border:1px solid #FFC85F;
+    margin-left:10px;
+    padding:2px 10px;
+    background-color:#EFAC2C;
+    color:#fff;
+}
 
 #footer {
     color:#fff;
@@ -105,4 +144,20 @@ a { color:#fff; }
     line-height: 2em;
     margin: 0 0 0 10px;
     color: #888;
+}
+
+.message input {
+    font-size:0.9em;
+    color:#67839F;
+    width:190px;
+}
+
+.message input#mainSubmit {
+    border:1px solid #FFC85F;
+    margin-left:10px;
+    padding:2px 25px;
+    background-color:#EFAC2C;
+    color:#fff;
+    font-size:0.8em;
+    width:auto;
 }

@@ -57,7 +57,7 @@
                 $("#progress").html("You don't have any geotagged tweets. :(");
                 return;
             }
-            $("#progress").html('Where has @<span class="username">'+ r[0].user.screen_name +'</span> been tweeting?');
+            $("#progress").html('Where has @<input type="text" name="twitName" value="'+ r[0].user.screen_name +'" /> been tweeting? <input id="mainSubmit" type="submit" name="twitSubmit" value="Submit">');
         });
     };
 
@@ -109,6 +109,14 @@
 
 <div class="results content hidden">
     <h2 class="message" id="progress">Loading your Tweets...</h2>
+    <div class="hidden" id="enableGeo">
+        <h3>Check someone else? @<input type="text" id="errorTwitName" name="errorTwitName" value="username" /><input type="submit" name="" id="errorSubmit" value="Submit"></h3>
+        <p>Twitter's geotagging requires use of a GPS enabled phone (such as the iPhone) and a geolocation-enabled Twitter application (such as Tweetie 2). If you have both of these things, turn on geotagging on your tweets in two steps:</p>
+        <ol>
+            <li>Head to <a href="http://twitter.com/account/settings">your Twitter account settings</a> and enable geotagging under "Location".</li>
+            <li>Enable geolocation in your Twitter application.</li>
+        </ol>
+    </div>
     <div id="map" style="height: 400px;"></div>
 </div>
 
