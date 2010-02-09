@@ -13,7 +13,10 @@ function parse_hash(hash) {
         params[kv[0]] = kv[1];
     });
 
-    window.location.hash = remainder_hash;
+    if(suffers_from_ie) {}
+    else
+        window.location.hash = remainder_hash; /// FIXME: IE doesn't like this line
+
     return params;
 }
 

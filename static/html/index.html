@@ -16,6 +16,15 @@
     google.load("jquery", "1");
     google.load("maps", "3", {other_params: "sensor=false&key=ABQIAAAA1PzfNUzENFLkcCUSpDoMQBTdp8DcBBN3_zUEII8WC3eyagMC_xRaY10X15Jkb1K4aNgMeVMSxNtB7g"});
 
+    var suffers_from_ie = navigator.appVersion.indexOf('MSIE') != -1;
+
+    function progress(m) {
+        if(!progress.target_cache) progress.target_cache = $("#progress");
+        var t = progress.target_cache
+        if(m) t.html(m).show();
+        else t.hide();
+    }
+
     function render_tweets(r, map) {
         var found_first = false;
         var count = 0;
@@ -44,20 +53,37 @@
         $(".user").removeClass('hidden');
     };
 
-    function load_into_map(map) {
-        twitter_api.user_timeline({count: 200}, function(r) {
+    var page = 1;
+
+    function load_into_map(map, target, page) {
+        var params = {count: 200}
+        if(target) {
+            progress("Loading @" + target + "'s tweets...");
+            params['screen_name'] = target;
+        }
+        if(page && page > 1) {
+            progress("Loading 200 more tweets...");
+            params['page'] = page;
+        }
+        twitter_api.user_timeline(params, function(r) {
+            $("#query").removeClass('hidden');
             if(r.length==0) {
-                $("#progress").html("You don't have any tweets! :O");
-                set_logged_in("you");
+                progress("There are no tweets there! :O");
+                if(!target) set_logged_in("you");
                 return;
             }
-            set_logged_in(r[0].user.screen_name);
+            var username = r[0].user.screen_name;
+            if(!target) set_logged_in(username);
+            $("#target").val(username);
             var c = render_tweets(r, map);
             if(c==0) {
-                $("#progress").html("You don't have any geotagged tweets. :(");
+                progress("@" + username + " doesn't have any geotagged tweets. :(");
+                $("#enable-geo").removeClass("hidden");
+                $("#map").addClass("hidden");
+                $("#load-more").addClass("hidden");
                 return;
             }
-            $("#progress").html('Where has @<input type="text" name="twitName" value="'+ r[0].user.screen_name +'" /> been tweeting? <input id="mainSubmit" type="submit" name="twitSubmit" value="Submit">');
+            progress();
         });
     };
 
@@ -82,6 +108,20 @@
         };
         map = new google.maps.Map(document.getElementById("map"), myOptions);
         load_into_map(map);
+
+        $("#query").submit(function() {
+            $("#enable-geo").addClass("hidden");
+            $("#map").removeClass("hidden");
+            $("#load-more").removeClass("hidden");
+            map = new google.maps.Map(document.getElementById("map"), myOptions);
+            page = 1;
+            load_into_map(map, $("#target").val());
+            return false;
+        });
+        $("#load-more").click(function() {
+            page++;
+            load_into_map(map, $("#target").val(), page);
+        });
     });
 </script>
 <script type="text/javascript" src="/static/js/jquery.jsonp-1.1.0.min.js"></script>
@@ -92,35 +132,41 @@
 <body>
 
 <div id="header">
-    <h1><a href="/">Tweography</a></h1>
+    <h1><a href="/"><span>Tweography</span></a></h1>
     <div class="user hidden"><div id="extra">Hi, @<span class="username">you</span>! <span class="button" id="logout">Sign out?</span></div></div>
 </div>
 
 <div class="intro content hidden">
     <img src="/static/images/mini-map.png" title="My Tweets plus Google Maps = Tweography" id="mini-map"/>
     <div>
-        <h2 class="message">
-            Tweography: Your tweets on a map.
-        </h2>
+        <h2 class="message">Tweography: Your tweets on a map.</h2>
         <p>Tweography will pull your most recent geolocated Tweets and plot them on Google Maps. Ready to see where you've tweeted from? Sign into Twitter OAuth to begin!</p>
         <img src="/static/images/Sign-in-with-Twitter-darker.png" alt="Sign in with Twitter" id="login" class="button"/>
     </div>
 </div>
 
 <div class="results content hidden">
-    <h2 class="message" id="progress">Loading your Tweets...</h2>
-    <div class="hidden" id="enableGeo">
-        <h3>Check someone else? @<input type="text" id="errorTwitName" name="errorTwitName" value="username" /><input type="submit" name="" id="errorSubmit" value="Submit"></h3>
-        <p>Twitter's geotagging requires use of a GPS enabled phone (such as the iPhone) and a geolocation-enabled Twitter application (such as Tweetie 2). If you have both of these things, turn on geotagging on your tweets in two steps:</p>
+    <form id="query" class="hidden">
+        Where has @<input type="text" id="target" /> been tweeting? <input type="submit" value="Submit">
+    </form>
+
+    <div id="progress">Loading your Tweets...</div>
+    <div class="clear"></div>
+
+    <div class="hidden" id="enable-geo" class="error">
+        <p>Twitter's geotagging requires use of a GPS enabled phone (such as the iPhone) and a geolocation-enabled Twitter application (such as Tweetie 2). If you have both of these things then you can enable geotagging on your tweets in two steps:</p>
         <ol>
             <li>Head to <a href="http://twitter.com/account/settings">your Twitter account settings</a> and enable geotagging under "Location".</li>
             <li>Enable geolocation in your Twitter application.</li>
         </ol>
     </div>
     <div id="map" style="height: 400px;"></div>
+    <div>
+        <input type="submit" id="load-more" value="Load 200 more tweets?" />
+    </div>
 </div>
 
-<div id="footer">A weeknight project by @<a href="http://twitter.com/limedaring" title="Designer">limedaring</a> and @<a href="http://twitter.com/shazow" title="Coder">shazow</a>.</div>
+<div id="footer">A weeknight project by @<a href="http://twitter.com/limedaring">limedaring</a> and @<a href="http://twitter.com/shazow">shazow</a>.</div>
 
 <script type="text/javascript">
   var _gaq = _gaq || [];

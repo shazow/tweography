@@ -6,11 +6,11 @@ TwitterAPI.prototype = {
     query_twitter: function(api_target, params, callback) {
         this.remaining_hits -= 1;
         if(!OAuth) {
-            log("OAuth not completed, can't query Twitter.");
+            progress("OAuth not completed, can't query Twitter.");
             return;
         }
         return OAuth.getJSON(api_target, params, callback, function() {
-            log("Twitter API is suffering from epic failulitis. Refresh and hope for the best?");       
+            progress("Twitter API is suffering from epic failulitis. Refresh and hope for the best?");       
         });
     },
     check_limit: function(callback) {

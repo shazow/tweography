@@ -10,10 +10,10 @@ html {
 }
 
 body {
-    font:62.5% 'Lucida Grande', Arial, sans-serif;
+    font: 62.5% 'Lucida Grande', Arial, sans-serif;
 }
 
-a { color:#fff; }
+a { color: #fff; }
 
 .hidden {
     display: none;
@@ -25,118 +25,109 @@ a { color:#fff; }
 }
 
 #header {
-    padding:20px 0 20px 40px;
-    color:#fff;
-    position:relative;
+    padding: 20px 0 20px 40px;
+    color: #fff;
+    position: relative;
 }
 
-#header h1 {
-    width:387px;
-    height:92px;
-    background:url(../images/tweography.png) top left no-repeat;
-    text-indent:-9999px;
+#header h1 a {
+    display: block;
+    width: 387px;
+    height: 92px;
+    background: url(../images/tweography.png) top left no-repeat;
+}
+#header h1 a span {
+    display: none;
 }
 
 #header #extra {
     background: url(../images/login-left.png) top left no-repeat;
-    height:24px;
-    padding:16px 25px 16px 35px;
-    display:block;
+    height: 24px;
+    padding: 16px 25px 16px 35px;
+    display: block;
 }
 
 #header .user {
-    position:absolute;
-    top:40px;
-    left:430px;
-    font-size:1.6em;
+    position: absolute;
+    top: 40px;
+    left: 430px;
+    font-size: 1.6em;
     background: url(../images/login-r.png) top right no-repeat;
 }
 
 .content {
-    background-color:#fff;
-    padding:10px 25px 20px 20px;
-    color:#db9000;
+    background-color: #fff;
+    padding: 10px 25px 20px 20px;
+    color: #db9000;
     -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4);
     -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4);
     box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4);
-    margin-right:-5px;
-    overflow:hidden;
+    margin-right: -5px;
+    overflow: hidden;
 }
 
 .content h2 {
-    font-weight:normal;
-    font-size:2.5em;
-    margin:0 0 10px 10px;
+    font-weight: normal;
+    font-size: 2.5em;
+    margin: 0 0 10px 10px;
 }
 
 .intro h2 {
-	margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 .intro {
-    padding:25px 25px 30px 25px;
+    padding: 25px 25px 30px 25px;
 }
 
 .intro p {
-	color: #888;
-	font-size: 1.5em;
-	margin: 0 0 20px 0;
-	width: 800px;
-	line-height: 1.7;
+    color: #888;
+    font-size: 1.5em;
+    margin: 0 0 20px 0;
+    width: 800px;
+    line-height: 1.7;
 }
 
 .intro #mini-map {
     margin: 0px 25px 0px 0px;
-    float:left;
+    float: left;
 }
 
-#enableGeo {
-    font-size:1.6em;
-    color:#888;
-    line-height:1.6;
-    margin:-10px 0 20px 100px;
-    width:70%;
+#enable-geo {
+    font-size: 1.6em;
+    color: #888;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    width: 70%;
 }
 
-#enableGeo ol {
-    margin:10px 0 0 0;
+#enable-geo ol {
+    margin: 10px 0 0 0;
 }
 
-#enableGeo li {
-    font-size:1em;
-    margin-left:30px;
-    list-style-type:decimal;
-    line-height:1.8;
+#enable-geo li {
+    font-size: 1em;
+    margin-left: 30px;
+    list-style-type: decimal;
+    line-height: 1.8;
 }
 
-#enableGeo li a {
-    color:#67839F;
+#enable-geo li a {
+    color: #67839F;
 }
 
-#enableGeo h3 {
-    margin:20px 0 10px 0;
+#enable-geo h3 {
+    margin: 20px 0 10px 0;
 }
 
-#enableGeo input {
-    font-size:1em;
-}
-
-#enableGeo input#errorTwitName {
-    color:#67839F;
-}
-
-#enableGeo input#errorSubmit {
-    border:1px solid #FFC85F;
-    margin-left:10px;
-    padding:2px 10px;
-    background-color:#EFAC2C;
-    color:#fff;
+#enable-geo input {
+    font-size: 1em;
 }
 
 #footer {
-    color:#fff;
-    margin:20px 0 20px 40px;
-    font-size:1.2em;
+    color: #fff;
+    margin: 20px 0 20px 40px;
+    font-size: 1.2em;
 }
 
 .content li {
@@ -146,18 +137,40 @@ a { color:#fff; }
     color: #888;
 }
 
-.message input {
-    font-size:0.9em;
-    color:#67839F;
-    width:190px;
+input {
+    font-size: 0.9em;
+    color: #67839F;
+    width: 190px;
 }
 
-.message input#mainSubmit {
-    border:1px solid #FFC85F;
-    margin-left:10px;
-    padding:2px 25px;
-    background-color:#EFAC2C;
-    color:#fff;
-    font-size:0.8em;
-    width:auto;
+input[type="submit"] {
+    border: 1px solid #FFC85F;
+    margin-left: 10px;
+    padding: 2px 25px;
+    background-color: #EFAC2C;
+    color: #fff;
+    font-size: 0.8em;
+    width: auto;
+}
+
+#load-more {
+    font-size: 2em;
+    margin-top: 1em;
+    margin-left: -1px;
+}
+#query, #progress {
+    float: left;
+    line-height: 30px;
+    font-size: 2em;
+    margin-bottom: 12px;
+}
+#query {
+    width: 600px;
+}
+#progress {
+    width: 450px;
+    color: #67839F;
+}
+.clear { 
+    clear: both;
 }
