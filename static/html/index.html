@@ -78,10 +78,14 @@
             $("#target").val(username);
             var c = render_tweets(r, map);
             if(c==0) {
-                progress("@" + username + " doesn't have any geotagged tweets. :(");
-                $("#enable-geo").removeClass("hidden");
-                $("#map").addClass("hidden");
-                $("#load-more").addClass("hidden");
+                if(page > 1) {
+                    progress("Can't load any more tweets. :|");
+                } else {
+                    progress("@" + username + " doesn't have any geotagged tweets. :(");
+                    $("#enable-geo").removeClass("hidden");
+                    $("#map").addClass("hidden");
+                    $("#load-more").addClass("hidden");
+                }
                 return;
             }
             progress();

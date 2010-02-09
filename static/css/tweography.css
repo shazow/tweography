@@ -169,6 +169,7 @@ input[type="submit"] {
 }
 #progress {
     width: 450px;
+    padding-left: 10px;
     color: #67839F;
 }
 .clear { 
