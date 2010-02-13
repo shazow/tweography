@@ -58,7 +58,7 @@ function load_accessor(data) {
     save_cookies(data);
 }
 
-google.setOnLoadCallback(function() {
+function init_jsoauth() {
     var data = parse_hash(window.location.hash);
     if(!data) {
         data = check_cookies();
@@ -123,7 +123,7 @@ google.setOnLoadCallback(function() {
         });
         f.submit();
     }
-});
+};
 
 
 /***/

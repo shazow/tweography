@@ -8,10 +8,9 @@
 
 <title>tweography | Where have I tweeted from?</title>
 
-<script src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 <script type="text/javascript" src="/static/js/sha1.js"></script>
 <script type="text/javascript" src="/static/js/oauth.js"></script>
-<script type="text/javascript" src="/static/js/jsoauthapi.js?3"></script>
 <script type="text/javascript">
     google.load("jquery", "1");
     google.load("maps", "3", {other_params: "sensor=false&key=ABQIAAAA1PzfNUzENFLkcCUSpDoMQBTdp8DcBBN3_zUEII8WC3eyagMC_xRaY10X15Jkb1K4aNgMeVMSxNtB7g"});
@@ -57,7 +56,8 @@
     var page = 1;
 
     function load_into_map(map, target, page) {
-        var params = {count: 200}
+        var params = {count: 200};
+
         if(target) {
             progress("Loading @" + target + "'s tweets...");
             params['screen_name'] = target;
@@ -92,7 +92,12 @@
         });
     };
 
+    var twitter_api;
+    var map;
+
     google.setOnLoadCallback(function() {
+        init_jsoauth();
+        twitter_api = new TwitterAPI();
         OAuth.app = "tweography";
         if(window.location.host == "localhost:8080") OAuth.app = "tweography-test";
 
@@ -111,14 +116,16 @@
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           mapTypeControl: false
         };
-        map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+        var map_elem = $("#map")[0];
+        map = new google.maps.Map(map_elem, myOptions);
         load_into_map(map);
 
         $("#query").submit(function() {
             $("#enable-geo").addClass("hidden");
             $("#map").removeClass("hidden");
             $("#load-more").removeClass("hidden");
-            map = new google.maps.Map(document.getElementById("map"), myOptions);
+            map = new google.maps.Map(map_elem, myOptions);
             page = 1;
             load_into_map(map, $("#target").val());
             return false;
@@ -130,6 +137,7 @@
     });
 </script>
 <script type="text/javascript" src="/static/js/jquery.jsonp-1.1.0.min.js"></script>
+<script type="text/javascript" src="/static/js/jsoauthapi.js?3"></script>
 <script type="text/javascript" src="/static/js/util.js?3"></script>
 <script type="text/javascript" src="/static/js/tweography.js?3"></script>
 <link rel="stylesheet" href="/static/css/tweography.css?3" type="text/css">

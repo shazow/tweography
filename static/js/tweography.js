@@ -10,7 +10,7 @@ TwitterAPI.prototype = {
             return;
         }
         return OAuth.getJSON(api_target, params, callback, function() {
-            progress("Twitter API is suffering from epic failulitis. Refresh and hope for the best?");       
+            progress("Twitter API is suffering from epic failulitis. Refresh and hope for the best?");
         });
     },
     check_limit: function(callback) {
@@ -29,7 +29,5 @@ TwitterAPI.prototype = {
 
         var api_target = "https://twitter.com/statuses/user_timeline.json";
         this.query_twitter(api_target, params, callback);
-    },
+    }
 };
-
-var twitter_api = new TwitterAPI();
