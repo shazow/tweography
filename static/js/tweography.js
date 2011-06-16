@@ -14,7 +14,7 @@ TwitterAPI.prototype = {
         });
     },
     check_limit: function(callback) {
-        var api_target = "https://twitter.com/account/rate_limit_status.json"
+        var api_target = "https://api.twitter.com/1/account/rate_limit_status.json"
         var self = this;
         return query_twitter(api_target, {}, function(data) {
             self.remaining_hits = data.remaining_hits;
@@ -27,7 +27,7 @@ TwitterAPI.prototype = {
             params = {};
         }
 
-        var api_target = "https://twitter.com/statuses/user_timeline.json";
+        var api_target = "https://api.twitter.com/1/statuses/user_timeline.json";
         this.query_twitter(api_target, params, callback);
     }
 };
