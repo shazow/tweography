@@ -16,7 +16,7 @@ TwitterAPI.prototype = {
     check_limit: function(callback) {
         var api_target = "https://api.twitter.com/1/account/rate_limit_status.json"
         var self = this;
-        return query_twitter(api_target, {}, function(data) {
+        return self.query_twitter(api_target, {}, function(data) {
             self.remaining_hits = data.remaining_hits;
             callback();
         });
