@@ -1,4 +1,3 @@
-/// TODO: Change twitter.com to api.twitter.com
 function TwitterAPI() {
     this.remaining_hits = 15;
 }

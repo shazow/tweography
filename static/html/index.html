@@ -9,138 +9,13 @@
 <title>tweography | Where have I tweeted from?</title>
 
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-<script type="text/javascript" src="/static/js/sha1.js"></script>
-<script type="text/javascript" src="/static/js/oauth.js"></script>
 <script type="text/javascript">
     google.load("jquery", "1");
     google.load("maps", "3", {other_params: "sensor=false&key=AIzaSyBqQC8QKofUcTN9vXSlz1tLbmMb6sgIH8o"});
-
-    var suffers_from_ie = navigator.appVersion.indexOf('MSIE') != -1;
-
-    function progress(m) {
-        if(!progress.target_cache) progress.target_cache = $("#progress");
-        var t = progress.target_cache
-        if(m) t.html(m).show();
-        else t.hide();
-    }
-
-    function render_tweets(r, map) {
-        var found_first = false;
-        var count = 0;
-        $.each(r, function(i, o) {
-            if(!o.geo) return true;
-
-            var coords = new google.maps.LatLng(o.geo.coordinates[0], o.geo.coordinates[1]);
-
-            if(!found_first) {
-                found_first = true;
-                map.setCenter(coords);
-                map.setZoom(10);
-            }
-
-            var marker = new google.maps.Marker({
-                position: coords,
-                map: map,
-                title: o.text
-            });
-            count++;
-        });
-        return count;
-    };
-
-    function set_logged_in(username) {
-        $(".username").text(username);
-        $(".user").removeClass('hidden');
-    };
-
-    var page = 1;
-
-    function load_into_map(map, target, page) {
-        var params = {count: 200};
-
-        if(target) {
-            progress("Loading @" + target + "'s tweets...");
-            params['screen_name'] = target;
-        }
-        if(page && page > 1) {
-            progress("Loading 200 more tweets...");
-            params['page'] = page;
-        }
-        twitter_api.user_timeline(params, function(r) {
-            $("#query").removeClass('hidden');
-            if(r.length==0) {
-                progress("There are no tweets there! :O");
-                if(!target) set_logged_in("you");
-                return;
-            }
-            var username = r[0].user.screen_name;
-            if(!target) set_logged_in(username);
-            $("#target").val(username);
-            var c = render_tweets(r, map);
-            if(c==0) {
-                if(page > 1) {
-                    progress("Can't load any more tweets. :|");
-                } else {
-                    progress("@" + username + " doesn't have any geotagged tweets. :(");
-                    $("#enable-geo").removeClass("hidden");
-                    $("#map").addClass("hidden");
-                    $("#load-more").addClass("hidden");
-                }
-                return;
-            }
-            progress();
-        });
-    };
-
-    var twitter_api;
-    var map;
-
-    google.setOnLoadCallback(function() {
-        init_jsoauth();
-        twitter_api = new TwitterAPI();
-        OAuth.app = "tweography";
-        if(window.location.host == "localhost:8080") OAuth.app = "tweography-test";
-
-        if(OAuth.accessor == undefined) {
-            $(".intro").removeClass('hidden');
-            $("#login").click(function() { OAuth.auth_redirect(); });
-            return;
-        }
-
-        $(".results").removeClass('hidden');
-        $("#logout").click(function() { clear_cookies(); window.location.reload(); }).show();
-
-        var myOptions = {
-          zoom: 2,
-          center: new google.maps.LatLng(0, 0),
-          mapTypeId: google.maps.MapTypeId.ROADMAP,
-          mapTypeControl: false
-        };
-
-        var map_elem = $("#map")[0];
-        map = new google.maps.Map(map_elem, myOptions);
-        load_into_map(map);
-
-        $("#query").submit(function() {
-            $("#enable-geo").addClass("hidden");
-            $("#map").removeClass("hidden");
-            $("#load-more").removeClass("hidden");
-            map = new google.maps.Map(map_elem, myOptions);
-            page = 1;
-            load_into_map(map, $("#target").val());
-            return false;
-        });
-        $("#load-more").click(function() {
-            page++;
-            load_into_map(map, $("#target").val(), page);
-        });
-    });
 </script>
-<script type="text/javascript" src="/static/js/jquery.jsonp-1.1.0.min.js"></script>
-<script type="text/javascript" src="/static/js/jsoauthapi.js?4"></script>
-<script type="text/javascript" src="/static/js/util.js?4"></script>
-<script type="text/javascript" src="/static/js/tweography.js?4"></script>
+<script src="//platform.twitter.com/anywhere.js?id=L3TFfmg15EcnZ5Uki5KJA&v=1" type="text/javascript"></script>
 <link rel="stylesheet" href="/static/css/tweography.css?4" type="text/css">
+
 </head>
 <body>
 
@@ -192,6 +67,10 @@
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
   })();
 </script>
+
+<script type="text/javascript" src="/static/js/util.js?4"></script>
+<script type="text/javascript" src="/static/js/tweography.js?4"></script>
+<script type="text/javascript" src="/static/js/core.js?4"></script>
 
 </body>
 </html>
